@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MedWand Remote ECG Demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <style>
+      body { background: #f4f6f8; }
+      .site-header { background: #fff; border-bottom: 1px solid #dee2e6; }
+      .brand-logo { display: block; height: 52px; width: auto; }
+      .ecg-viewport { width: min(100%, 1000px); margin-inline: auto; background: #fff; }
+      #ecg-render-target canvas { display: block; width: 100%; height: auto; border: 1px solid #000; box-sizing: border-box; }
+      .ecg-preview-list { display: grid; min-width: 0; gap: 2.5rem; }
+      .ecg-preview-list > figure { min-width: 0; max-width: 100%; }
+      .ecg-preview-scroll { width: 100%; max-width: 100%; overflow-x: auto; background: #fff; }
+      .ecg-preview-scroll canvas { display: block; width: auto; max-width: none; height: auto; border: 1px solid #000; box-sizing: border-box; }
+    </style>
+  </head>
+  <body>
+    <header class="site-header py-3">
+      <div class="container-fluid px-4">
+        <img class="brand-logo" src="assets/images/logo.png" alt="MedWand" />
+      </div>
+    </header>
+
+    <main class="container-fluid px-4 py-4">
+      <section aria-labelledby="ecg-title">
+        <div class="mb-3">
+          <h1 id="ecg-title" class="h4 mb-1">Remote ECG</h1>
+          <p class="text-body-secondary mb-0">Five-second live ECG display</p>
+        </div>
+
+        <ul class="nav nav-tabs mb-4" id="ecg-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="live-drawing-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#live-drawing-pane"
+              type="button"
+              role="tab"
+              aria-controls="live-drawing-pane"
+              aria-selected="true"
+            >Live Drawing</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="full-recordings-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#full-recordings-pane"
+              type="button"
+              role="tab"
+              aria-controls="full-recordings-pane"
+              aria-selected="false"
+            >Full Recordings</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="ecg-tab-content">
+          <div
+            class="tab-pane fade show active"
+            id="live-drawing-pane"
+            role="tabpanel"
+            aria-labelledby="live-drawing-tab"
+            tabindex="0"
+          >
+            <div class="row g-2 align-items-end mb-3">
+              <div class="col-sm-auto">
+                <label class="form-label" for="ecg-recording-select">Sample recording</label>
+                <select id="ecg-recording-select" class="form-select">
+                  <option value="10">10 seconds</option>
+                  <option value="20">20 seconds</option>
+                  <option value="30">30 seconds</option>
+                </select>
+              </div>
+              <div class="col-sm-auto">
+                <button id="draw-ecg-button" class="btn btn-primary" type="button" disabled>
+                  Draw ECG
+                </button>
+              </div>
+              <div class="col-sm">
+                <p id="ecg-status" class="form-text mb-2" role="status" aria-live="polite">
+                  Loading sample recordings…
+                </p>
+              </div>
+            </div>
+
+            <div class="ecg-viewport" aria-label="Remote ECG waveform">
+              <div id="ecg-render-target"></div>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="full-recordings-pane"
+            role="tabpanel"
+            aria-labelledby="full-recordings-tab"
+            tabindex="0"
+          >
+            <div class="ecg-preview-list">
+              <figure class="mb-0">
+                <figcaption class="h5 mb-3">10-second ECG recording</figcaption>
+                <div class="ecg-preview-scroll">
+                  <div id="ecg-preview-10"></div>
+                </div>
+              </figure>
+              <figure class="mb-0">
+                <figcaption class="h5 mb-3">20-second ECG recording</figcaption>
+                <div class="ecg-preview-scroll">
+                  <div id="ecg-preview-20"></div>
+                </div>
+              </figure>
+              <figure class="mb-0">
+                <figcaption class="h5 mb-3">30-second ECG recording</figcaption>
+                <div class="ecg-preview-scroll">
+                  <div id="ecg-preview-30"></div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/vendor/mwsdk-javascript-remote.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
