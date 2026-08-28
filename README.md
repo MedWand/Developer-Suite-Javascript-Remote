@@ -2,6 +2,9 @@
 
 Sample browser application demonstrating how to use the mwsdk-javascript-remote package. Current build demonstrates how to render MedWand-compatible ECG data with `@medwand/mwsdk-javascript-remote`.
 
+Install the mwsdk-javascript-remote package with 
+npm install @medwand/mwsdk-javascript-remote@3.2.1
+
 ## SDK usage versus sample simulation
 
 The application demonstrates two supported ECG workflows:
