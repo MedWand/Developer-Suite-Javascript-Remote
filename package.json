@@ -1,0 +1,13 @@
+{
+  "name": "developer-suite-javascript-remote",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@medwand/mwsdk-javascript-remote": "^3.2.1",
+    "cd": "^0.3.3"
+  }
+}
